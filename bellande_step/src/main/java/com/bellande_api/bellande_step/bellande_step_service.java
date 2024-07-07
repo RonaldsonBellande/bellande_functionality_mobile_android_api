@@ -23,17 +23,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Bellande_Step_Service {
     private final Bellande_Step_Api bellande_step_api;
 
-    public BellandeService(String apiUrl, String apiAccessKey) {
+    public Bellande_Step_Service(String apiUrl, String endpointPath, String apiAccessKey) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(apiUrl)
+                .baseUrl(apiUrl + endpointPath)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        bellande_step_api = retrofit.create(bellande_step_api.class);
+        bellande_step_api = retrofit.create(Bellande_Step_Api.class);
     }
 
-    public Call<bellande_step_api.BellandeResponse> getBellandeResponse(String inputText) {
-        bellande_step_api.RequestBody requestBody = new bellande_step_api.RequestBody(inputText);
+    public Call<Bellande_Step_Api.BellandeResponse> getBellandeResponse(String inputText) {
+        Bellande_Step_Api.RequestBody requestBody = new Bellande_Step_Api.RequestBody(inputText);
         return bellande_step_api.getBellandeResponse(requestBody);
     }
 }

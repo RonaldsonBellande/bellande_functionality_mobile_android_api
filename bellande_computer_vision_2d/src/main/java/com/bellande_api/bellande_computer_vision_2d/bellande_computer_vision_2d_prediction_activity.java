@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
-package com.bellande_api.bellande_step;
+package com.bellande_api.bellande_computer_vision_2d_prediction;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bellande_api.bellande_step.databinding.ActivityAiBinding;
+import com.bellande_api.bellande_computer_vision_2d_prediction.databinding.ActivityAiBinding;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,9 +35,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Bellande_Step_Activity extends AppCompatActivity {
+public class Bellande_Computer_Vision_2D_Prediction_Activity extends AppCompatActivity {
     private ActivityAiBinding binding;
-    private Bellande_Step_Service bellande_step_service;
+    private Bellande_Computer_Vision_2D_Prediction_Service bellande_computer_vision_2d_prediction_service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,10 @@ public class Bellande_Step_Activity extends AppCompatActivity {
         // Load API configuration from configs.json
         Map<String, Object> config = loadConfigFromFile();
         String apiUrl = (String) config.get("url");
-        String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("2d");
+        String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("prediction");
         String apiAccessKey = (String) config.get("Bellande_Framework_Access_Key");
 
-        bellande_step_service = new Bellande_Step_Service(apiUrl, endpointPath, apiAccessKey);
+        bellande_computer_vision_2d_prediction_service = new Bellande_Computer_Vision_2D_Prediction_Service(apiUrl, endpointPath, apiAccessKey);
 
         binding.btnSendInput.setOnClickListener(v -> handleUserInput());
     }
@@ -63,24 +63,24 @@ public class Bellande_Step_Activity extends AppCompatActivity {
             Type type = new TypeToken<Map<String, Object>>() {}.getType();
             return new Gson().fromJson(reader, type);
         } catch (IOException e) {
-            Log.e("Bellande_Step_Activity", "Error reading config file: " + e.getMessage());
+            Log.e("Bellande_Computer_Vision_2D_Prediction_Activity", "Error reading config file: " + e.getMessage());
         }
         return null;
     }
 
     private void handleUserInput() {
         String inputText = binding.etInput.getText().toString();
-        bellande_step_service.getBellandeResponse(inputText).enqueue(new Callback<Bellande_Step_Api.BellandeResponse>() {
+        bellande_computer_vision_2d_prediction_service.getBellandeResponse(inputText).enqueue(new Callback<Bellande_Computer_Vision_2D_Api.BellandeResponse>() {
             @Override
-            public void onResponse(Call<Bellande_Step_Api.BellandeResponse> call, Response<Bellande_Step_Api.BellandeResponse> response) {
+            public void onResponse(Call<Bellande_Computer_Vision_2D_Api.BellandeResponse> call, Response<Bellande_Computer_Vision_2D_Api.BellandeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     binding.tvResponse.setText(response.body().response);
                 }
             }
 
             @Override
-            public void onFailure(Call<Bellande_Step_Api.BellandeResponse> call, Throwable t) {
-                Log.e("Bellande_Step_Activity", "Error: " + t.getMessage());
+            public void onFailure(Call<Bellande_Computer_Vision_2D_Api.BellandeResponse> call, Throwable t) {
+                Log.e("Bellande_Computer_Vision_2D_Prediction_Activity", "Error: " + t.getMessage());
             }
         });
     }

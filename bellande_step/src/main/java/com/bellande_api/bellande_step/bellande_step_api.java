@@ -24,7 +24,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface Bellande_Step_Api {
-    @POST("endpoint_path")
+    @POST("2d")
     Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
 
     class RequestBody {

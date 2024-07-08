@@ -17,6 +17,7 @@
 
 plugins {
     alias(libs.plugins.android.application)
+    id 'maven-publish'
 }
 
 android {
@@ -30,6 +31,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -51,4 +53,25 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.github.Application-UI-UX'
+            artifactId 'bellande_computer_vision_2d'
+            version '0.0.1'
+
+        }
+    }
+    repositories {
+        maven {
+            name = "github"
+            url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_computer_vision_2d")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }

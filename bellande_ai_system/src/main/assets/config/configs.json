@@ -1,0 +1,31 @@
+{
+  "license": [
+    "Copyright (C) 2024 Bellande Robotics Sensors Research Innovation Center, Ronaldson Bellande",
+    "This program is free software: you can redistribute it and/or modify",
+    "it under the terms of the GNU General Public License as published by",
+    "the Free Software Foundation, either version 3 of the License, or",
+    "(at your option) any later version.",
+    "",
+    "This program is distributed in the hope that it will be useful,",
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of",
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+    "GNU General Public License for more details.",
+    "",
+    "You should have received a copy of the GNU General Public License",
+    "along with this program.  If not, see <https://www.gnu.org/licenses/>.",
+    "GNU General Public License v3.0 or later"
+  ],
+  "url": "https://bellanderoboticssensorsresearchinnovationcenter-kot42qxp.b4a.run",
+  "endpoint_path": {
+    "2d": "/api/Bellande_Ai_System/bellande_ai_system_2d",
+    "3d": "/api/Bellande_Ai_System/bellande_ai_system_3d",
+    "4d": "/api/Bellande_Ai_System/bellande_ai_system_4d",
+    "5d": "/api/Bellande_Ai_System/bellande_ai_system_5d",
+    "6d": "/api/Bellande_Ai_System/bellande_ai_system_6d",
+    "7d": "/api/Bellande_Ai_System/bellande_ai_system_7d",
+    "8d": "/api/Bellande_Ai_System/bellande_ai_system_8d",
+    "9d": "/api/Bellande_Ai_System/bellande_ai_system_9d",
+    "10d": "/api/Bellande_Ai_System/bellande_ai_system_10d"
+  },
+  "Bellande_Framework_Access_Key": "bellande_web_api_opensource"
+}

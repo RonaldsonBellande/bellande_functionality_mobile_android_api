@@ -13,20 +13,26 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+ **/
 
 package com.bellande_api.bellande_computer_vision_2d;
-import com.bellande_api.bellande_computer_vision_2d.bellande_computer_vision_2d_prediction_api;
 
+import java.io.File;
+import java.io.IOException;
 
-import retrofit2.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class bellande_computer_vision_2d_prediction_service {
     private final bellande_computer_vision_2d_prediction_api bellande_computer_vision_2d_prediction_api;
 
-    public bellande_computer_vision_2d_prediction_service(String apiUrl, String endpointPath, String apiAccessKey) {
+    public bellande_computer_vision_2d_prediction_service(String apiUrl, String endpointPath, String apiAccessKey, bellande_computer_vision_2d_prediction_api bellande_computer_vision_2d_prediction_api) {
+        this.bellande_computer_vision_2d_prediction_api = bellande_computer_vision_2d_prediction_api;
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl + endpointPath)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -35,8 +41,21 @@ public class bellande_computer_vision_2d_prediction_service {
         bellande_computer_vision_2d_prediction_api = retrofit.create(bellande_computer_vision_2d_prediction_api.class);
     }
 
-    public Call<bellande_computer_vision_2d_prediction_api.BellandeResponse> getBellandeResponse(String inputText) {
-        bellande_computer_vision_2d_prediction_api.RequestBody requestBody = new bellande_computer_vision_2d_prediction_api.RequestBody(inputText);
-        return bellande_computer_vision_2d_prediction_api.getBellandeResponse(requestBody);
+    public bellande_computer_vision_2d_prediction_api.BellandeResponse getPrediction(File imageFile) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile.getAbsolutePath());
+        bellande_computer_vision_2d_prediction_api.RequestBody apiRequestBody = new bellande_computer_vision_2d_prediction_api.RequestBody(
+                MultipartBody.Part.createFormData("image", imageFile.getName(), requestBody)
+        );
+
+        try {
+            Response<bellande_computer_vision_2d_prediction_api.BellandeResponse> response = bellande_computer_vision_2d_prediction_api.getBellandeResponse(apiRequestBody).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body();
+            } else {
+                throw new RuntimeException("Error getting prediction: " + response.code() + " - " + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error getting prediction: " + e.getMessage());
+        }
     }
 }

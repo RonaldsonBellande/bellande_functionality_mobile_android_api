@@ -21,11 +21,11 @@ plugins {
 }
 
 android {
-    namespace 'com.bellande_api.computer_vision_2d'
+    namespace 'com.bellande_api.bellande_ai_system'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.bellande_api.bellande_computer_vision_2d"
+        applicationId "com.bellande_api.bellande_ai_system"
         minSdk 16
         targetSdk 34
         versionCode 1
@@ -37,7 +37,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -65,28 +64,24 @@ android {
 dependencies {
     implementation libs.appcompat
     implementation libs.material
-    implementation 'com.google.firebase:firebase-crashlytics-buildtools:3.0.2'
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation 'com.google.code.gson:gson:2.8.7'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
             groupId 'com.github.Application-UI-UX'
-            artifactId 'bellande_computer_vision_2d'
+            artifactId 'bellande_ai_system'
             version '0.0.1'
 
         }
     }
     repositories {
         maven {
-            name = "bellande_api"
-            url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_computer_vision_2d")
+            name = "github"
+            url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_ai_system")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")

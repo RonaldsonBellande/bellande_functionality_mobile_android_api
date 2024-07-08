@@ -13,27 +13,30 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- **/
+ */
 
-package com.bellande_api.bellande_computer_vision_2d_prediction;
+package com.bellande_api.bellande_computer_vision_2d;
+import com.bellande_api.bellande_computer_vision_2d.bellande_computer_vision_2d_prediction_api;
 
+
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Bellande_Computer_Vision_2D_Prediction_Service {
-    private final Bellande_Computer_Vision_2D_Prediction_Api bellande_computer_vision_2d_prediction_api;
+public class bellande_computer_vision_2d_prediction_service {
+    private final bellande_computer_vision_2d_prediction_api bellande_computer_vision_2d_prediction_api;
 
-    public Bellande_Step_Service(String apiUrl, String endpointPath, String apiAccessKey) {
+    public bellande_computer_vision_2d_prediction_service(String apiUrl, String endpointPath, String apiAccessKey) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl + endpointPath)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        bellande_computer_vision_2d_prediction_api = retrofit.create(Bellande_Computer_Vision_2D_Prediction_Api.class);
+        bellande_computer_vision_2d_prediction_api = retrofit.create(bellande_computer_vision_2d_prediction_api.class);
     }
 
-    public Call<Bellande_Computer_Vision_2D_Prediction_Api.BellandeResponse> getBellandeResponse(String inputText) {
-        Bellande_Computer_Vision_2D_Prediction_Api.RequestBody requestBody = new Bellande_Computer_Vision_2D_Prediction_Api.RequestBody(inputText);
+    public Call<bellande_computer_vision_2d_prediction_api.BellandeResponse> getBellandeResponse(String inputText) {
+        bellande_computer_vision_2d_prediction_api.RequestBody requestBody = new bellande_computer_vision_2d_prediction_api.RequestBody(inputText);
         return bellande_computer_vision_2d_prediction_api.getBellandeResponse(requestBody);
     }
 }

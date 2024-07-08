@@ -23,6 +23,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bellande_api.bellande_computer_vision_2d.bellande_computer_vision_2d_prediction_service;
+import com.bellande_api.bellande_computer_vision_2d.bellande_computer_vision_2d_prediction_api;
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.reflect.*;
@@ -33,6 +34,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class bellande_computer_vision_2d_prediction_activity extends AppCompatActivity {
     private bellande_computer_vision_2d_prediction_service bellande_computer_vision_2d_prediction_service;
 
@@ -42,10 +46,13 @@ public class bellande_computer_vision_2d_prediction_activity extends AppCompatAc
         String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("prediction");
         String apiAccessKey = (String) config.get("Bellande_Framework_Access_Key");
 
-        bellande_computer_vision_2d_prediction_service = new bellande_computer_vision_2d_prediction_service(apiUrl, endpointPath, apiAccessKey);
-    }
-    public bellande_computer_vision_2d_prediction_service getBellandeComputerVision2dPredictionService() {
-        return bellande_computer_vision_2d_prediction_service;
+        bellande_computer_vision_2d_prediction_api bellande_computer_vision_2d_prediction_api = new Retrofit.Builder()
+                .baseUrl(apiUrl + endpointPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(bellande_computer_vision_2d_prediction_api.class);
+
+        bellande_computer_vision_2d_prediction_service = new bellande_computer_vision_2d_prediction_service(apiUrl, endpointPath, apiAccessKey, bellande_computer_vision_2d_prediction_api);
     }
 
     @SuppressLint("LongLogTag")

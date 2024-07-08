@@ -45,3 +45,4 @@ rootProject.name = "Bellande_Mobile_Android_Api"
 include ':bellande_step'
 include ':bellande_computer_vision_2d'
 include ':bellande_computer_vision_3d'
+include ':bellande_ai_system'

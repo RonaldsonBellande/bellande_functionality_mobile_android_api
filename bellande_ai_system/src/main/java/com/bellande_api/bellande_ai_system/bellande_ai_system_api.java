@@ -15,39 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
-package com.bellande_api.bellande_computer_vision_2d;
+package com.bellande_api.bellande_ai_system;
 
 import com.google.gson.annotations.SerializedName;
 
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
-public interface bellande_computer_vision_2d_prediction_api {
-    @Multipart
-    @POST("prediction")
+public interface Bellande_Ai_System_Api {
+    @POST("2d")
     Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
 
     class RequestBody {
-        private final MultipartBody.Part image;
+        @SuppressWarnings("unused")
+        @SerializedName("input_text")
+        private final String inputText;
 
-        public RequestBody(MultipartBody.Part image) {
-            this.image = image;
-        }
-
-        public MultipartBody.Part getImage() {
-            return image;
+        public RequestBody(String inputText) {
+            this.inputText = inputText;
         }
     }
 
     class BellandeResponse {
-        @SerializedName("prediction")
-        public String prediction;
-
-        @SerializedName("confidence")
-        public double confidence;
+        @SerializedName("response")
+        public String response;
     }
 }

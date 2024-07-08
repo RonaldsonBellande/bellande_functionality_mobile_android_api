@@ -1,3 +1,4 @@
+
 /**
  * Copyright (C) 2024 Bellande Application UI UX Research Innovation Center, Ronaldson Bellande
  *
@@ -15,33 +16,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("libs.versions.toml"))
-        }
-    }
-}
+package com.bellande_api.bellande_computer_vision_3d_prediction;
 
-rootProject.name = "Bellande_Mobile_Android_Api"
-include ':bellande_step'
-include ':bellande_computer_vision_2d'
-include ':bellande_computer_vision_3d'
+import com.google.gson.annotations.SerializedName;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+
+public interface Bellande_Computer_Vision_3D_Prediction_Api {
+    @POST("prediction")
+    Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
+
+    class RequestBody {
+        @SuppressWarnings("unused")
+        @SerializedName("input_text")
+        private final String inputText;
+
+        public RequestBody(String inputText) {
+            this.inputText = inputText;
+        }
+    }
+
+    class BellandeResponse {
+        @SerializedName("response")
+        public String response;
+    }
+}

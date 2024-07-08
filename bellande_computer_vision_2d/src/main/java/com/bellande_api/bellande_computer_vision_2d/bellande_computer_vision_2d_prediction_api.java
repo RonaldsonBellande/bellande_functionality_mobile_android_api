@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2024 Bellande Application UI UX Research Innovation Center, Ronaldson Bellande
  *
@@ -16,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
-package com.bellande_api.bellande_computer_vision_2d_prediction;
+package com.bellande_api.bellande_computer_vision_2d;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -24,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface Bellande_Computer_Vision_2D_Prediction_Api {
+public interface bellande_computer_vision_2d_prediction_api {
     @POST("prediction")
     Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
 

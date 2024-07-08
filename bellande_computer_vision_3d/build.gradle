@@ -17,6 +17,7 @@
 
 plugins {
     alias(libs.plugins.android.application)
+    id 'maven-publish'
 }
 
 android {
@@ -30,6 +31,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -43,6 +45,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    aaptOptions {
+        noCompress 'xml'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'AndroidManifest.xml'
+    }
 }
 
 dependencies {
@@ -51,4 +67,25 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.github.Application-UI-UX'
+            artifactId 'bellande_computer_vision_3d'
+            version '0.0.1'
+
+        }
+    }
+    repositories {
+        maven {
+            name = "github"
+            url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_computer_vision_3d")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }

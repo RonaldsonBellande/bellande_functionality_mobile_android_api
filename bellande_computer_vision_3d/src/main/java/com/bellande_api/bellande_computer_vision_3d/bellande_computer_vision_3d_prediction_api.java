@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2024 Bellande Application UI UX Research Innovation Center, Ronaldson Bellande
  *
@@ -16,30 +15,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
 
-package com.bellande_api.bellande_computer_vision_3d_prediction;
+package com.bellande_api.bellande_computer_vision_3d;
 
 import com.google.gson.annotations.SerializedName;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
-public interface Bellande_Computer_Vision_3D_Prediction_Api {
+public interface bellande_computer_vision_3d_prediction_api {
+    @Multipart
     @POST("prediction")
-    Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
+    Call<BellandeResponse> getPrediction(@Part MultipartBody.Part pointCloud);
 
     class RequestBody {
-        @SuppressWarnings("unused")
-        @SerializedName("input_text")
-        private final String inputText;
+        private final MultipartBody.Part pointCloud;
 
-        public RequestBody(String inputText) {
-            this.inputText = inputText;
+        public RequestBody(MultipartBody.Part pointCloud) {
+            this.pointCloud = pointCloud;
+        }
+
+        public MultipartBody.Part getPointCloud() {
+            return pointCloud;
         }
     }
 
     class BellandeResponse {
-        @SerializedName("response")
-        public String response;
+        @SerializedName("prediction")
+        public String prediction;
+
+        @SerializedName("confidence")
+        public double confidence;
     }
 }

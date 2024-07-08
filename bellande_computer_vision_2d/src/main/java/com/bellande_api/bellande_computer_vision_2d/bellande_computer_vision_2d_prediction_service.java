@@ -38,7 +38,7 @@ public class bellande_computer_vision_2d_prediction_service {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        bellande_computer_vision_2d_prediction_api = retrofit.create(bellande_computer_vision_2d_prediction_api.class);
+        retrofit.create(bellande_computer_vision_2d_prediction_api.class);
     }
 
     public bellande_computer_vision_2d_prediction_api.BellandeResponse getPrediction(File imageFile) {

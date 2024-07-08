@@ -14,16 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  **/
-package com.bellande_api.bellande_computer_vision_3d_prediction;
+package com.bellande_api.bellande_computer_vision_3d;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bellande_api.bellande_computer_vision_3d_prediction.databinding.ActivityAiBinding;
+import com.bellande_api.bellande_computer_vision_3d.bellande_computer_vision_3d_prediction_service;
+import com.bellande_api.bellande_computer_vision_3d.bellande_computer_vision_3d_prediction_api;
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,57 +34,37 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Bellande_Computer_Vision_3D_Prediction_Activity extends AppCompatActivity {
-    private ActivityAiBinding binding;
-    private Bellande_Computer_Vision_3D_Prediction_Service bellande_computer_vision_3d_prediction_service;
+public class bellande_computer_vision_3d_prediction_activity extends AppCompatActivity {
+    private bellande_computer_vision_3d_prediction_service bellande_computer_vision_3d_prediction_service;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityAiBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // Load API configuration from configs.json
-        Map<String, Object> config = loadConfigFromFile();
+    public bellande_computer_vision_3d_prediction_activity(Context context) {
+        Map<String, Object> config = loadConfigFromFile(context);
         String apiUrl = (String) config.get("url");
         String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("prediction");
         String apiAccessKey = (String) config.get("Bellande_Framework_Access_Key");
 
-        bellande_computer_vision_3d_prediction_service = new Bellande_Computer_Vision_3D_Prediction_Service(apiUrl, endpointPath, apiAccessKey);
+        bellande_computer_vision_3d_prediction_api bellande_computer_vision_3d_prediction_api = new Retrofit.Builder()
+                .baseUrl(apiUrl + endpointPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(bellande_computer_vision_3d_prediction_api.class);
 
-        binding.btnSendInput.setOnClickListener(v -> handleUserInput());
+        bellande_computer_vision_3d_prediction_service = new bellande_computer_vision_3d_prediction_service(apiUrl, endpointPath, apiAccessKey, bellande_computer_vision_3d_prediction_api);
     }
 
-    private Map<String, Object> loadConfigFromFile() {
+    @SuppressLint("LongLogTag")
+    private Map<String, Object> loadConfigFromFile(Context context) {
         try {
-            InputStream inputStream = getResources().openRawResource(R.raw.configs);
+            InputStream inputStream = context.getAssets().open("configs.json");
             InputStreamReader reader = new InputStreamReader(inputStream);
             Type type = new TypeToken<Map<String, Object>>() {}.getType();
             return new Gson().fromJson(reader, type);
         } catch (IOException e) {
-            Log.e("Bellande_Computer_Vision_3D_Prediction_Activity", "Error reading config file: " + e.getMessage());
+            Log.e("bellande_computer_vision_2d_prediction_activity", "Error reading config file: " + e.getMessage());
         }
         return null;
-    }
-
-    private void handleUserInput() {
-        String inputText = binding.etInput.getText().toString();
-        bellande_computer_vision_3d_prediction_service.getBellandeResponse(inputText).enqueue(new Callback<Bellande_Computer_Vision_3D_Api.BellandeResponse>() {
-            @Override
-            public void onResponse(Call<Bellande_Computer_Vision_3D_Api.BellandeResponse> call, Response<Bellande_Computer_Vision_3D_Api.BellandeResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    binding.tvResponse.setText(response.body().response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Bellande_Computer_Vision_3D_Api.BellandeResponse> call, Throwable t) {
-                Log.e("Bellande_Computer_Vision_3D_Prediction_Activity", "Error: " + t.getMessage());
-            }
-        });
     }
 }

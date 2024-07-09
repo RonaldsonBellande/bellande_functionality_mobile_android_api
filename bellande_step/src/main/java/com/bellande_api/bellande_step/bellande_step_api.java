@@ -19,22 +19,23 @@ package com.bellande_api.bellande_step;
 
 import com.google.gson.annotations.SerializedName;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
-public interface Bellande_Step_Api {
+public interface bellande_step_api {
     @POST("2d")
     Call<BellandeResponse> getBellandeResponse(@Body RequestBody requestBody);
 
     class RequestBody {
-        @SuppressWarnings("unused")
-        @SerializedName("input_text")
         private final String inputText;
 
-        public RequestBody(String inputText) {
-            this.inputText = inputText;
-        }
+        public RequestBody(String inputText) { this.inputText = inputText; }
+
+        public String getString() { return inputText; }
     }
 
     class BellandeResponse {

@@ -17,23 +17,45 @@
 
 package com.bellande_api.bellande_step;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Bellande_Step_Service {
-    private final Bellande_Step_Api bellande_step_api;
+public class bellande_step_service {
+    private final bellande_step_api bellande_step_api;
 
-    public Bellande_Step_Service(String apiUrl, String endpointPath, String apiAccessKey) {
+    public bellande_step_service(String apiUrl, String endpointPath, String apiAccessKey, bellande_step_api bellande_step_api) {
+        this.bellande_step_api = bellande_step_api;
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl + endpointPath)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        bellande_step_api = retrofit.create(Bellande_Step_Api.class);
+        retrofit.create(bellande_step_api.class);
     }
 
-    public Call<Bellande_Step_Api.BellandeResponse> getBellandeResponse(String inputText) {
-        Bellande_Step_Api.RequestBody requestBody = new Bellande_Step_Api.RequestBody(inputText);
-        return bellande_step_api.getBellandeResponse(requestBody);
+    public bellande_step_api.BellandeResponse getPrediction(String inputText) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), inputText);
+        bellande_step_api.RequestBody apiRequestBody = new bellande_step_api.RequestBody(
+                inputText
+        );
+
+        try {
+            Response<bellande_step_api.BellandeResponse> response = bellande_step_api.getBellandeResponse(apiRequestBody).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body();
+            } else {
+                throw new RuntimeException("Error getting prediction: " + response.code() + " - " + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error getting prediction: " + e.getMessage());
+        }
     }
 }

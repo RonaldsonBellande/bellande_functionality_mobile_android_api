@@ -56,7 +56,7 @@ public class bellande_step_activity extends AppCompatActivity {
     }
 
     @SuppressLint("LongLogTag")
-    private Map<String, Object> loadConfigFromFile(Context context) {
+    Map<String, Object> loadConfigFromFile(Context context) {
         try {
             InputStream inputStream = context.getAssets().open("configs.json");
             InputStreamReader reader = new InputStreamReader(inputStream);

@@ -1,4 +1,4 @@
-# 🤖 Bellande Mobile Android Api Package
+# 🤖 Bellande Functionality Mobile Android Api Package
 
 # Benifits of Using the Bellande API's
 - Works in any framework

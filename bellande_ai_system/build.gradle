@@ -85,7 +85,7 @@ publishing {
     repositories {
         maven {
             name = "github"
-            url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_ai_system")
+            url = uri("https://github.com/Application-UI-UX/bellande_ai_system")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")

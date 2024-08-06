@@ -71,24 +71,49 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId 'com.github.Application-UI-UX'
-            artifactId 'bellande_ai_system'
-            version '0.0.1'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
 
+                groupId = 'com.github.Application-UI-UX'
+                artifactId = 'bellande_ai_system'
+                version = '0.0.1'
+
+                pom {
+                    name = 'Bellande AI System'
+                    description = 'Android library for Bellande AI System functionality'
+                    url = 'https://github.com/Application-UI-UX/bellande_ai_system'
+                    licenses {
+                        license {
+                            name = 'GNU General Public License v3.0'
+                            url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'ronaldsonbellande'
+                            name = 'Ronaldson Bellande'
+                            email = 'ronaldsonbellande@gmail.com'
+                        }
+                    }
+                }
+            }
         }
-    }
-    repositories {
-        maven {
-            name = "github"
-            url = uri("https://github.com/Application-UI-UX/bellande_ai_system")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_ai_system")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                }
             }
         }
     }

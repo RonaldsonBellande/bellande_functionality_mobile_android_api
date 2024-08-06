@@ -16,16 +16,15 @@
  **/
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     id 'maven-publish'
 }
 
 android {
-    namespace 'com.bellande_api.computer_vision_2d'
+    namespace 'com.bellande_api.bellande_computer_vision_2d'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.bellande_api.bellande_computer_vision_2d"
         minSdk 16
         targetSdk 34
         versionCode 1
@@ -37,14 +36,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     aaptOptions {
@@ -60,6 +58,13 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'AndroidManifest.xml'
     }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -72,24 +77,54 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId 'com.github.Application-UI-UX'
-            artifactId 'bellande_computer_vision_2d'
-            version '0.0.1'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
 
+                groupId = 'com.github.Application-UI-UX'
+                artifactId = 'bellande_computer_vision_2d'
+                version = '0.0.1'
+
+                pom {
+                    name = 'Bellande AI System'
+                    description = 'Android library for Bellande Computer Vision 2D Functionality'
+                    url = 'https://github.com/Application-UI-UX/bellande_computer_vision_2d'
+                    licenses {
+                        license {
+                            name = 'GNU General Public License v3.0'
+                            url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'ronaldsonbellande'
+                            name = 'Ronaldson Bellande'
+                            email = 'ronaldsonbellande@gmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/Application-UI-UX/bellande_computer_vision_2d.git'
+                        developerConnection = 'scm:git:ssh://github.com:Application-UI-UX/bellande_computer_vision_2d.git'
+                        url = 'https://github.com/Application-UI-UX/bellande_computer_vision_2d/tree/main'
+                    }
+                }
+            }
         }
-    }
-    repositories {
-        maven {
-            name = "bellande_api"
-            url = uri("https://github.com/Application-UI-UX/bellande_computer_vision_2d")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_computer_vision_2d")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                }
             }
         }
     }

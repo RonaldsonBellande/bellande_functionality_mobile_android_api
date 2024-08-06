@@ -17,3 +17,5 @@ local.properties
 gradle
 gradlew
 gradlew.bat
+.settings
+.project

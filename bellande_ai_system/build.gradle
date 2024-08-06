@@ -16,7 +16,7 @@
  **/
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     id 'maven-publish'
 }
 
@@ -25,7 +25,6 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.bellande_api.bellande_ai_system"
         minSdk 16
         targetSdk 34
         versionCode 1
@@ -42,8 +41,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     aaptOptions {
@@ -58,6 +57,13 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/ASL2.0'
         exclude 'AndroidManifest.xml'
+    }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -101,6 +107,11 @@ afterEvaluate {
                             name = 'Ronaldson Bellande'
                             email = 'ronaldsonbellande@gmail.com'
                         }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/Application-UI-UX/bellande_ai_system.git'
+                        developerConnection = 'scm:git:ssh://github.com:Application-UI-UX/bellande_ai_system.git'
+                        url = 'https://github.com/Application-UI-UX/bellande_ai_system/tree/main'
                     }
                 }
             }

@@ -43,7 +43,7 @@ public class bellande_step_activity extends AppCompatActivity {
     public bellande_step_activity(Context context) {
         Map<String, Object> config = loadConfigFromFile(context);
         String apiUrl = (String) config.get("url");
-        String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("2d");
+        String endpointPath = (String) ((Map<String, Object>) config.get("endpoint_path")).get("bellande_step");
         String apiAccessKey = (String) config.get("Bellande_Framework_Access_Key");
 
         bellande_step_api bellande_step_api = new Retrofit.Builder()

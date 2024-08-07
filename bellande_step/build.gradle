@@ -89,11 +89,11 @@ afterEvaluate {
 
                 groupId = 'com.github.Application-UI-UX'
                 artifactId = 'bellande_functionality_mobile_android_api'
-                version = '0.0.1-step'  // Version now includes the branch name
+                version = '0.0.1-step'
 
                 pom {
                     name = 'Bellande Functionality Mobile Android API - Step'
-                    description = 'Android library for Bellande Mobile Android API with Step functionality'
+                    description = 'Android library for Bellande Mobile Android API with Step Functionality'
                     url = 'https://github.com/Application-UI-UX/bellande_functionality_mobile_android_api'
                     licenses {
                         license {

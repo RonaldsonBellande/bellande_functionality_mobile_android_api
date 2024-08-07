@@ -88,13 +88,13 @@ afterEvaluate {
                 from components.release
 
                 groupId = 'com.github.Application-UI-UX'
-                artifactId = 'bellande_computer_vision_3d'
-                version = '0.0.1'
+                artifactId = 'bellande_functionality_mobile_android_api'
+                version = '0.0.1-computer-vision-3d'
 
                 pom {
-                    name = 'Bellande AI System'
-                    description = 'Android library for Bellande Computer Vision 3D Functionality'
-                    url = 'https://github.com/Application-UI-UX/bellande_computer_vision_3d'
+                    name = 'Bellande Functionality Mobile Android API - Computer Vision 3D'
+                    description = 'Android library for Bellande Mobile Android API with Computer Vision 3D Functionality'
+                    url = 'https://github.com/Application-UI-UX/bellande_functionality_mobile_android_api'
                     licenses {
                         license {
                             name = 'GNU General Public License v3.0'
@@ -109,9 +109,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://github.com/Application-UI-UX/bellande_computer_vision_3d.git'
-                        developerConnection = 'scm:git:ssh://github.com:Application-UI-UX/bellande_computer_vision_3d.git'
-                        url = 'https://github.com/Application-UI-UX/bellande_computer_vision_3d/tree/main'
+                        connection = 'scm:git:git://github.com/Application-UI-UX/bellande_functionality_mobile_android_api.git'
+                        developerConnection = 'scm:git:ssh://github.com:Application-UI-UX/bellande_functionality_mobile_android_api.git'
+                        url = 'https://github.com/Application-UI-UX/bellande_functionality_mobile_android_api/tree/computer-vision-3d'
                     }
                 }
             }
@@ -120,7 +120,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_computer_vision_3d")
+                url = uri("https://maven.pkg.github.com/Application-UI-UX/bellande_functionality_mobile_android_api")
                 credentials {
                     username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
                     password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")

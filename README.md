@@ -1,5 +1,12 @@
 # 🤖 Bellande Functionality Mobile Android Api Package
 
+# Published Package
+- [![Published Package](https://img.shields.io/badge/Published-Package-0099cc?style=for-the-badge)](https://github.com/Application-UI-UX/bellande_functionality_mobile_android_api/packages)
+
+# Published Release
+- [![Published Release](https://img.shields.io/badge/Published-Release-0099cc?style=for-the-badge)](https://github.com/Application-UI-UX/bellande_functionality_mobile_android_api/releases)
+
+
 # Benifits of Using the Bellande API's
 - Works in any framework
 - Works in any programming languages or scripting languages
